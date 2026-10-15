@@ -1,5 +1,5 @@
 #[derive(PartialEq, Debug, Default, Clone)]
-enum TileState {
+pub enum TileState {
     #[default]
     Hidden,
     Flagged,
@@ -8,20 +8,40 @@ enum TileState {
 
 #[derive(Default, Debug, Clone)]
 pub struct Tile {
-    is_bomb: bool,
+    is_mine: bool,
     tile_state: TileState,
-    bombs_adjacent: u8,
+    mines_adjacent: u8,
 }
 
 impl Tile {
     pub fn new() -> Self {
-        let is_bomb = false;
+        let is_mine = false;
         let tile_state = TileState::Hidden;
-        let bombs_adjacent = 0;
+        let mines_adjacent = 0;
         Self {
-            is_bomb,
+            is_mine,
             tile_state,
-            bombs_adjacent,
+            mines_adjacent,
         }
+    }
+    //getters
+    pub fn is_bomb(&self) -> bool {
+        self.is_mine
+    }
+    pub fn tile_state(&self) -> &TileState {
+        &self.tile_state
+    }
+    pub fn mines_adjacent(&self) -> u8 {
+        self.mines_adjacent
+    }
+    //setters
+    pub fn place_mine(&mut self) {
+        self.is_mine = true;
+    }
+    pub fn update_adjacent(&mut self, count: u8) {
+        self.mines_adjacent = count;
+    }
+    pub fn update_state(&mut self, state: TileState) {
+        self.tile_state = state;
     }
 }

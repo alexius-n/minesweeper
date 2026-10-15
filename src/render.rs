@@ -1,3 +1,4 @@
+use crate::board::Board;
 use crate::game::Game;
 use macroquad::prelude::*;
 pub async fn load_textures() -> Vec<Texture2D> {
@@ -32,13 +33,14 @@ pub async fn load_textures() -> Vec<Texture2D> {
     ]
 }
 pub async fn render(game: Game) {
+    game.board();
     let textures = load_textures().await;
     loop {
         clear_background(GRAY);
         for i in 0..10 {
             let y: f32 = i as f32;
             for i in 0..10 {
-                let mut x: f32 = i as f32;
+                let x: f32 = i as f32;
                 draw_texture(&textures[10], (x * 32.0), (y * 32.0), WHITE);
             }
         }

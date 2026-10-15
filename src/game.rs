@@ -27,4 +27,9 @@ impl Game {
             seed: seed,
         }
     }
+    pub fn board(&self) -> &Board {
+        &self.board
+    }
+    pub fn flag() {}
+    pub fn dig() {}
 }

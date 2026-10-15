@@ -9,13 +9,15 @@ pub struct Board {
 impl Board {
     pub fn create(width: usize, height: usize) -> Self {
         let tiles = vec![vec![Tile::new(); width]; height];
-        println!("{:?}", tiles);
         Self {
             tiles,
             width,
             height,
             mines: 40,
         }
+    }
+    pub fn tiles(&self) -> &Vec<Vec<Tile>> {
+        &self.tiles
     }
     pub fn place(seed: u64, mines: usize) {}
 }
