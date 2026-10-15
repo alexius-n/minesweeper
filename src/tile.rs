@@ -25,7 +25,7 @@ impl Tile {
         }
     }
     //getters
-    pub fn is_bomb(&self) -> bool {
+    pub fn is_mine(&self) -> bool {
         self.is_mine
     }
     pub fn tile_state(&self) -> &TileState {

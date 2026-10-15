@@ -47,13 +47,6 @@ pub async fn render(game: Game) {
             x = 0.0;
             y += 1.0;
         }
-        /*for i in 0..10 {
-            let y: f32 = i as f32;
-            for i in 0..10 {
-                let x: f32 = i as f32;
-                draw_texture(&textures[10], (x * 32.0), (y * 32.0), WHITE);
-            }
-        }*/
         next_frame().await;
     }
 }
