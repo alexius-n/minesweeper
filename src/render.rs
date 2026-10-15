@@ -1,6 +1,6 @@
 use crate::board::Board;
 use crate::game::Game;
-use crate::tile;
+use crate::tile::{self, TileState};
 use macroquad::prelude::*;
 pub async fn load_textures() -> Vec<Texture2D> {
     let zero: Texture2D = load_texture("assets/0.png").await.unwrap();
@@ -41,7 +41,31 @@ pub async fn render(game: Game) {
         let mut y = 0.0;
         for row in game.board().tiles() {
             for tile in row {
-                draw_texture(&textures[10], (x * 32.0), (y * 32.0), WHITE);
+                match tile.tile_state() {
+                    TileState::Dug => match tile.mines_adjacent() {
+                        0 => {
+                            if tile.is_mine() == true {
+                                draw_texture(&textures[11], (x * 32.0), (y * 32.0), WHITE);
+                            } else {
+                                draw_texture(&textures[0], (x * 32.0), (y * 32.0), WHITE);
+                            }
+                        }
+                        1 => draw_texture(&textures[1], (x * 32.0), (y * 32.0), WHITE),
+                        2 => draw_texture(&textures[2], (x * 32.0), (y * 32.0), WHITE),
+                        3 => draw_texture(&textures[3], (x * 32.0), (y * 32.0), WHITE),
+                        4 => draw_texture(&textures[4], (x * 32.0), (y * 32.0), WHITE),
+                        5 => draw_texture(&textures[5], (x * 32.0), (y * 32.0), WHITE),
+                        6 => draw_texture(&textures[6], (x * 32.0), (y * 32.0), WHITE),
+                        7 => draw_texture(&textures[7], (x * 32.0), (y * 32.0), WHITE),
+                        8 => draw_texture(&textures[8], (x * 32.0), (y * 32.0), WHITE),
+                        9_u8..=u8::MAX => panic!("Invalid Number"),
+                    },
+                    TileState::Flagged => {
+                        draw_texture(&textures[10], (x * 32.0), (y * 32.0), WHITE)
+                    }
+                    TileState::Hidden => draw_texture(&textures[9], (x * 32.0), (y * 32.0), WHITE),
+                }
+
                 x += 1.0;
             }
             x = 0.0;
