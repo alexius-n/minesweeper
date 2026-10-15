@@ -17,10 +17,11 @@ pub struct Game {
 }
 impl Game {
     pub fn new() -> Self {
-        let mut new = Board::create(8, 8);
+        let mut new = Board::create(20, 20);
         let mut random = Random::new();
         let seed = random.next_int();
         new.place(seed);
+        new.adjacent();
         Self {
             board: new,
             flagged: (0),

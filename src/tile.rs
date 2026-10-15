@@ -16,7 +16,7 @@ pub struct Tile {
 impl Tile {
     pub fn new() -> Self {
         let is_mine = false;
-        let tile_state = TileState::Dug;
+        let tile_state = TileState::Hidden;
         let mines_adjacent = 0;
         Self {
             is_mine,
@@ -38,8 +38,8 @@ impl Tile {
     pub fn place_mine(&mut self) {
         self.is_mine = true;
     }
-    pub fn update_adjacent(&mut self, count: u8) {
-        self.mines_adjacent = count;
+    pub fn update_adjacent(&mut self) {
+        self.mines_adjacent += 1;
     }
     pub fn update_state(&mut self, state: TileState) {
         self.tile_state = state;

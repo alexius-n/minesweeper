@@ -14,7 +14,7 @@ impl Board {
             tiles,
             width,
             height,
-            mines: 10,
+            mines: 40,
         }
     }
     pub fn tiles(&self) -> &Vec<Vec<Tile>> {
@@ -30,8 +30,9 @@ impl Board {
         }
         let mut random = Random::with_seed(seed);
         loop {
-            let index = random.next_int() % positions.len() as u64;
-            println!("{:?}", index);
+            let random = random.next_int();
+            assert!(!positions.is_empty(), "No positions left!");
+            let index = random % positions.len() as u64;
             let position: (usize, usize) = positions.remove(index as usize);
             let y = position.0;
             let x = position.1;
@@ -40,6 +41,35 @@ impl Board {
             if mines_required == 0 {
                 break;
             }
+        }
+    }
+    pub fn adjacent(&mut self) {
+        let mut positions: Vec<(usize, usize)> = Vec::new();
+        for (y, row) in self.tiles.iter().enumerate() {
+            for (x, tile) in row.iter().enumerate() {
+                if tile.is_mine() {
+                    let nx: isize = x as isize;
+                    let ny: isize = y as isize;
+                    let calculations: [isize; 3] = [-1, 0, 1];
+                    for dy in calculations {
+                        for dx in calculations {
+                            let fx = nx + dx;
+                            let fy = ny + dy;
+                            if 0 <= fy && fy < self.width as isize {
+                                if 0 <= fx && fx < self.width as isize {
+                                    if self.tiles[fy as usize][fx as usize].is_mine() == false {
+                                        println!("+1 at {},{}", fx, fy);
+                                        positions.push((fy as usize, fx as usize));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        for (y, x) in positions {
+            self.tiles[y][x].update_adjacent();
         }
     }
 }

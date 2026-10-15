@@ -8,6 +8,6 @@ use crate::render::render;
 
 #[macroquad::main("Minesweeper")]
 async fn main() {
-    let game = Game::new();
+    let mut game = Game::new();
     render(game).await;
 }

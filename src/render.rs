@@ -1,4 +1,3 @@
-use crate::board::Board;
 use crate::game::Game;
 use crate::tile::{self, TileState};
 use macroquad::prelude::*;
