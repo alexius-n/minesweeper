@@ -1,3 +1,4 @@
+use crate::rng::Random;
 use crate::tile::{self, Tile};
 #[derive(Debug)]
 pub struct Board {
@@ -13,11 +14,32 @@ impl Board {
             tiles,
             width,
             height,
-            mines: 40,
+            mines: 10,
         }
     }
     pub fn tiles(&self) -> &Vec<Vec<Tile>> {
         &self.tiles
     }
-    pub fn place(seed: u64, mines: usize) {}
+    pub fn place(&mut self, seed: u64) {
+        let mut mines_required = self.mines;
+        let mut positions: Vec<(usize, usize)> = Vec::new();
+        for y in 0..self.height {
+            for x in 0..self.width {
+                positions.push((y, x));
+            }
+        }
+        let mut random = Random::with_seed(seed);
+        loop {
+            let index = random.next_int() % positions.len() as u64;
+            println!("{:?}", index);
+            let position: (usize, usize) = positions.remove(index as usize);
+            let y = position.0;
+            let x = position.1;
+            &self.tiles[y][x].place_mine();
+            mines_required -= 1;
+            if mines_required == 0 {
+                break;
+            }
+        }
+    }
 }

@@ -57,7 +57,7 @@ pub async fn render(game: Game) {
                         5 => draw_texture(&textures[5], (x * 32.0), (y * 32.0), WHITE),
                         6 => draw_texture(&textures[6], (x * 32.0), (y * 32.0), WHITE),
                         7 => draw_texture(&textures[7], (x * 32.0), (y * 32.0), WHITE),
-                        8 => draw_texture(&textures[8], (x * 32.0), (y * 32.0), WHITE),
+                        8_ => draw_texture(&textures[8], (x * 32.0), (y * 32.0), WHITE),
                         9_u8..=u8::MAX => panic!("Invalid Number"),
                     },
                     TileState::Flagged => {
