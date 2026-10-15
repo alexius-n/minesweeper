@@ -55,7 +55,7 @@ impl Board {
                         for dx in calculations {
                             let fx = nx + dx;
                             let fy = ny + dy;
-                            if 0 <= fy && fy < self.width as isize {
+                            if 0 <= fy && fy < self.height as isize {
                                 if 0 <= fx && fx < self.width as isize {
                                     if self.tiles[fy as usize][fx as usize].is_mine() == false {
                                         println!("+1 at {},{}", fx, fy);
