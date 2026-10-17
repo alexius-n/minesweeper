@@ -1,3 +1,4 @@
+use macroquad::input::is_mouse_button_pressed;
 mod board;
 mod game;
 mod render;

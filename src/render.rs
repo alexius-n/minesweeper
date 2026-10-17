@@ -32,7 +32,7 @@ pub async fn load_textures() -> Vec<Texture2D> {
         zero, one, two, three, four, five, six, seven, eight, hidden, flag, bomb,
     ]
 }
-pub async fn render(game: Game) {
+pub async fn render(mut game: Game) {
     let textures = load_textures().await;
     loop {
         clear_background(GRAY);
@@ -67,8 +67,26 @@ pub async fn render(game: Game) {
 
                 x += 1.0;
             }
+
             x = 0.0;
             y += 1.0;
+        }
+
+        if is_mouse_button_pressed(macroquad::input::MouseButton::Left) {
+            let (mouse_x, mouse_y) = mouse_position();
+
+            let x = (mouse_x / 32.0) as usize;
+            let y = (mouse_y / 32.0) as usize;
+            let coordinates = (x, y);
+            game.dig(coordinates);
+        }
+        if is_mouse_button_pressed(MouseButton::Right) {
+            let (mouse_x, mouse_y) = mouse_position();
+
+            let x = (mouse_x / 32.0) as usize;
+            let y = (mouse_y / 32.0) as usize;
+            let coordinates = (x, y);
+            game.flag(coordinates);
         }
         next_frame().await;
     }

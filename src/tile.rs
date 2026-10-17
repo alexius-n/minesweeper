@@ -16,7 +16,7 @@ pub struct Tile {
 impl Tile {
     pub fn new() -> Self {
         let is_mine = false;
-        let tile_state = TileState::Dug;
+        let tile_state = TileState::Hidden;
         let mines_adjacent = 0;
         Self {
             is_mine,
